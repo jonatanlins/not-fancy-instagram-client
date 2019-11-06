@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseURL = 'http://localhost:8080/';
+export const baseURL = 'https://not-fancy-instagram-server.herokuapp.com:5011/';
 
 export const api = axios.create({ baseURL });
 

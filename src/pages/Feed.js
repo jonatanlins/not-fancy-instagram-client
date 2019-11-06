@@ -10,20 +10,12 @@ import sendImage from '../assets/icons/send.svg';
 
 class Feed extends React.Component {
   state = {
-    feed: [
-      {
-        author: 'Netinho',
-        description: 'Olokinho meu',
-        local: 'Tamandaré',
-        image:
-          'https://img.r7.com/images/dia-internacional-do-gato-instagram-08082019161531430',
-        likes: 6541654,
-      },
-    ],
+    feed: [],
   };
 
   fetchData = async () => {
     const response = await api.get('/posts');
+    console.log('response', response);
     this.setState({ feed: response.data.reverse() });
   };
 
@@ -34,7 +26,7 @@ class Feed extends React.Component {
   handleLike = id => () => {
     this.setState({
       feed: this.state.feed.map(post =>
-        post.id === id ? { ...post, likes: post.likes + 1 } : post
+        post._id === id ? { ...post, likes: post.likes + 1 } : post
       ),
     });
 
@@ -48,7 +40,7 @@ class Feed extends React.Component {
       <Shell>
         <StyledSection>
           {feed.map(post => (
-            <article key={post.id}>
+            <article key={post._id}>
               <header>
                 <div className="userInfo">
                   <span>{post.author}</span>
@@ -62,7 +54,7 @@ class Feed extends React.Component {
 
               <footer>
                 <div className="actions">
-                  <button onClick={this.handleLike(post.id)}>
+                  <button onClick={this.handleLike(post._id)}>
                     <img src={likeImage} alt="Curtir" />
                   </button>
                   <button>
